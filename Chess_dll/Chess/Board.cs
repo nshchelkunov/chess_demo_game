@@ -16,16 +16,63 @@ namespace Chess
         public Board (string fen)
         {
             this.fen = fen;
-            figures = new Figure[8, 8];
+            figures = new Figure [8, 8];
             Init();
         }
 
         void Init ()
         {
-            SetFigureAt(new Square ("a1"), Figure.whiteKing);
-            SetFigureAt(new Square ("h8"), Figure.blackKing);
+            // "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+            // 0                                            1 2    3 4 5
+            string[] parts = fen.Split();
+            if (parts.Length != 6) return;
+            InitFigures (parts [0]);
+            moveColor = parts [1] == "b" ? Color.black : Color.white;
+            moveNamber = int.Parse (parts [5]);
+        }
 
-            moveColor = Color.white;
+        void InitFigures (string data)
+        {
+            for (int j = 8; j >= 2; j--)
+                data = data.Replace (j.ToString(), (j - 1).ToString() + "1");// Уменьшает в цикле числа из  data на 1 и прибавляет к строке "1"
+            data = data.Replace ("1", ".");
+            string[] lines = data.Split('/'); //Хранит линии доски начиная с левого вехнего
+
+            for (int y = 7; y >= 0; y--)
+                for (int x = 0; x < 8; x++)
+                    figures [x, y] = (lines [7 - y][x] == '.') ? Figure.none : 
+                                                                 (Figure)lines [7 - y][x];
+        }
+
+        public IEnumerable<FigureOnSquare> YieldFigures()
+        {
+            foreach (Square square in Square.YieldSquares())
+                if (GetFigureAt(square).GetColor() == moveColor)
+                    yield return new FigureOnSquare(GetFigureAt(square), square);
+        }
+
+        void GenerateFen () //Создает новую доску в формате нотации Форсайта — Эдвардса
+        {
+            fen = FenFigures() + " " +
+                       (moveColor == Color.white ? "w" : "b") + 
+                       " - - 0 " + moveNamber.ToString();
+        }
+
+        string FenFigures ()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int y = 7; y >= 0; y--)
+            {
+                for (int x = 0; x < 8; x++)
+                    sb.Append(figures[x, y] == Figure.none ? '1' : (char)figures[x, y]);
+                if (y > 0)
+                    sb.Append('/');
+            }
+            string eight = "11111111";
+            for (int j = 8; j >= 2; j--)
+                sb.Replace(eight.Substring(0, j), j.ToString());
+
+            return sb.ToString();
         }
 
         public Figure GetFigureAt (Square square) //Возвращает фигуру на клетке 
@@ -49,6 +96,7 @@ namespace Chess
             if (moveColor == Color.black)
                 next.moveNamber++;
             next.moveColor = moveColor.FlipColor();
+            next.GenerateFen();
             return next;
         }
     }

@@ -11,12 +11,16 @@ namespace DemoChess
     {
         static void Main(string[] args)
         {
-            Chess.Chess chess = new Chess.Chess();
+            Chess.Chess chess = new Chess.Chess("rnbqkbnr/1p1111p1/8/8/8/8/1P1111P1/RNBQKBNR w KQkq - 0 1");
             
             while (true) // Выводит игру на консоль
             {
-                Console.WriteLine(chess.fen);
-                Print(ChessToAscii(chess));
+                Console.WriteLine (chess.fen);
+                Print (ChessToAscii (chess));
+                foreach (string moves in chess.GetAllMoves())
+                    Console.Write (moves + "\t");
+                Console.WriteLine();
+                Console.Write("> ");
                 string move = Console.ReadLine();
                 if (move == "") break;
                 chess = chess.Move(move);
@@ -47,7 +51,7 @@ namespace DemoChess
                 if (x >= 'a' && x <= 'z')
                     Console.ForegroundColor = ConsoleColor.Red;
                 else if (x >= 'A' &&  x <= 'Z')
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.White;
                 else
                     Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write(x);
