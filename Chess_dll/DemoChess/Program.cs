@@ -9,21 +9,24 @@ namespace DemoChess
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main (string[] args)
         {
-            Chess.Chess chess = new Chess.Chess("rnbqkbnr/1p1111p1/8/8/8/8/1P1111P1/RNBQKBNR w KQkq - 0 1");
-            
+            Random random = new Random();
+            Chess.Chess chess = new Chess.Chess ("rnbqkbnr/1p1111p1/8/8/8/8/1P1111P1/RNBQKBNR w KQkq - 0 1");
+            List <string> list;
             while (true) // Выводит игру на консоль
             {
+                list = chess.GetAllMoves();
                 Console.WriteLine (chess.fen);
                 Print (ChessToAscii (chess));
-                foreach (string moves in chess.GetAllMoves())
+                foreach (string moves in list)
                     Console.Write (moves + "\t");
                 Console.WriteLine();
-                Console.Write("> ");
+                Console.Write ("> ");
                 string move = Console.ReadLine();
-                if (move == "") break;
-                chess = chess.Move(move);
+                if (move == "q") break;
+                if (move == "") move = list [random.Next (list.Count)];
+                chess = chess.Move (move);
             }
         }
 
