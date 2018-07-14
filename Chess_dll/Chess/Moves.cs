@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chess
 {
-    class Moves
+	class Moves
     {
         FigureMoving fm;
         Board board;
@@ -35,7 +35,7 @@ namespace Chess
         bool CanMoveTo()
         {
             return fm.to.OnBoard() &&
-                   fm.from != fm.to &&
+                   Square.NoEqualsSquare(fm.from, fm.to)  &&
                    board.GetFigureAt(fm.to).GetColor() != board.moveColor;          
         }
 
@@ -121,7 +121,7 @@ namespace Chess
             do
             {
                 at = new Square(at.x + fm.SignX, at.y + fm.SignY);
-                if (at == fm.to)
+                if (Square.EqualsSquare(at, fm.to))
                     return true;
             } while (at.OnBoard() &&
                      board.GetFigureAt(at) == Figure.none);
@@ -143,3 +143,5 @@ namespace Chess
 
     }
 }
+    
+

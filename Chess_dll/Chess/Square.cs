@@ -39,15 +39,16 @@ namespace Chess
 
         public string Name { get { return ((char)('a' + x)).ToString() + (y + 1).ToString();  } }
 
-        public static bool operator == (Square a, Square b)
+        public static bool EqualsSquare (Square a, Square b)
         {
-            return a.x == b.x && a.y == b.y;
+            return a.x.Equals(b.x) && a.y.Equals(b.y);
         }
 
-        public static bool operator !=(Square a, Square b)
+        public static bool NoEqualsSquare (Square a, Square b)
         {
-            return !(a == b);
+            return !(EqualsSquare(a, b));
         }
+        
         public static IEnumerable<Square> YieldSquares()
         {
             for (int y = 0; y < 8; y++)
