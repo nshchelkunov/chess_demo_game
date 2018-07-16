@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ChessClient;
 
 public class Game : MonoBehaviour {
 
@@ -9,6 +10,10 @@ public class Game : MonoBehaviour {
     Chess chess;
     public GameObject BlackSquare;
     public GameObject WhiteSquare;
+    const string HOST = "http://localhost:51278/api/Games/";
+    string USER = "2";
+
+    ClientChess client;
 
     public Game()
 	{
@@ -18,6 +23,10 @@ public class Game : MonoBehaviour {
 
 	public void Start () 
 	{
+        client = new ClientChess(HOST, USER);
+        GameInfo game = client.GetCurrentGame();
+        Debug.Log(game.FEN);
+
         CreateBoard();
         ShowFigures();
 	}
@@ -31,7 +40,7 @@ public class Game : MonoBehaviour {
             string figure = chess.GetFigureAt(from).ToString();
             string move = figure + from + to;
             Debug.Log(move);
-            chess = chess.Move(move);
+            chess = new Chess(client.SendMove(move).FEN);
             ShowFigures();
         }
     }
