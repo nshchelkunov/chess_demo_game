@@ -39,6 +39,13 @@ namespace ChessRules
             return nextChess;
         }
 
+        public char GetFigureAt(String st)//Возвращает фигуру по кооординатам
+        {
+            Square sq = new Square(st);
+            Figure f = board.GetFigureAt(sq);
+            return f == Figure.none ? '.' : (char)f;
+        }
+
         public char GetFigureAt (int x, int y)//Возвращает фигуру по кооординатам
         {
             Square square = new Square(x, y);

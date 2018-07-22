@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChessClient;
+using ChessRules;
 
 public class Game : MonoBehaviour {
 
