@@ -10,7 +10,7 @@
 Программная генерация доски с фигурами, реакция на Input
 chess_demo_game/Chess/Assets/Scripts/    Основная логика в Game.cs
 
-Правила игры: библиотека ChessRules.dll
+Правила игры: библиотека Rules.dll
 Cодержит набор классов определяющих правила игры и проверку ходов
 chess_demo_game/Chess_dll/Chess/
 Консольный клиент, используемый для тестирования находится в chess_demo_game/Chess_dll/DemoChess/
@@ -33,6 +33,6 @@ chess_demo_game/ChessAPI/ChessAPI/
 
 РСУБД: Microsoft SQL Server
 
-Правила игры (для проверки хода на сервере): ChessRules.dll
+Правила игры (для проверки хода на сервере): Rules.dll
 
 
