@@ -20,9 +20,12 @@ namespace ChessRules
         {
             this.fm = fm;
             return
-                CanMoveFrom() && // Можно ли пойти с этой клетки
-                CanMoveTo() && // Можно ли пойти куда собрались ходить
-                CanFigureMove(); // Может ли фигура сделать этот ход
+                // Можно ли пойти с этой клетки
+                CanMoveFrom() &&
+                // Можно ли пойти куда собрались ходить
+                CanMoveTo() &&
+                // Может ли фигура сделать этот ход
+                CanFigureMove();
         }
 
         bool CanMoveFrom()
@@ -75,20 +78,27 @@ namespace ChessRules
                 default: return false;
             }
         }
-        
-        bool CanPawnMove() //Может ли пешка ходить
+
+        //Может ли пешка ходить
+        bool CanPawnMove() 
         {
             if (fm.from.y < 1 || fm.from.y > 6)
                 return false;
-            int stepY = fm.figure.GetColor() == Color.white ? 1 : -1; //Направление движения вверж или вниз по доске
-            return CanPawnGo(stepY) ||   //Может ли идти вперед на 1 клетку
-                   CanPawnJump(stepY) || // Может ли идти через 1 клетку
-                   CanPawnEat(stepY);    // Может ли есть
+            // Направление движения вверж или вниз по доске
+            int stepY = fm.figure.GetColor() == Color.white ? 1 : -1;
+            // Может ли идти вперед на 1 клетку
+            return CanPawnGo(stepY) ||
+                   // Может ли идти через 1 клетку
+                   CanPawnJump(stepY) ||
+                   // Может ли есть
+                   CanPawnEat(stepY);    
         }
         private bool CanPawnGo (int stepY)
         {
-            if (board.GetFigureAt(fm.to) == Figure.none) //Если клетка куда указан ход пуста
-                if (fm.DeltaX == 0)                      //Если ход по прямой
+            // Если клетка куда указан ход пуста
+            if (board.GetFigureAt(fm.to) == Figure.none)
+                // Если ход по прямой
+                if (fm.DeltaX == 0)                      
                     if (fm.DeltaY == stepY)              
                         return true;
             return false;
@@ -98,9 +108,12 @@ namespace ChessRules
         {
             if (board.GetFigureAt(fm.to) == Figure.none)
                 if (fm.DeltaX == 0)
-                    if (fm.DeltaY == 2 * stepY) //Если ход через 1 клетку
-                        if (fm.from.y == 1 || fm.from.y == 6) // Если ход из 1 или 6 горизонтали
-                            if (board.GetFigureAt (new Square (fm.from.x, fm.from.y + stepY)) == Figure.none) // Если между клетками 'от' и 'куда' нет фигуры
+                    // Если ход через 1 клетку
+                    if (fm.DeltaY == 2 * stepY)
+                        // Если ход из 1 или 6 горизонтали
+                        if (fm.from.y == 1 || fm.from.y == 6)
+                            // Если между клетками 'от' и 'куда' нет фигуры
+                            if (board.GetFigureAt (new Square (fm.from.x, fm.from.y + stepY)) == Figure.none) 
                                 return true;
             return false;
 
@@ -115,7 +128,8 @@ namespace ChessRules
             return false;
         }
 
-        private bool CanStraightMove() // Может ли двигаться прямо
+        // Может ли двигаться прямо
+        private bool CanStraightMove() 
         {
             Square at = fm.from;
             do

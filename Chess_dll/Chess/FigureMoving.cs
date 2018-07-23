@@ -8,10 +8,14 @@ namespace ChessRules
 {
     class FigureMoving
     {
-        public Figure figure { get; private set; } //Фигура
-        public Square from { get; private set; } //Из какой клетки
-        public Square to { get; private set; } //В какую клетку
-        public Figure promotion { get; private set; } // Преобразование фигуры (для пешки)
+        // Фигура
+        public Figure figure { get; private set; }
+        // Из какой клетки
+        public Square from { get; private set; }
+        // В какую клетку
+        public Square to { get; private set; }
+        // Преобразование фигуры (для пешки)
+        public Figure promotion { get; private set; } 
 
         public FigureMoving (FigureOnSquare fs, Square to, Figure promotion = Figure.none)
         {
@@ -21,7 +25,8 @@ namespace ChessRules
             this.promotion = promotion;
         }
 
-        public FigureMoving (string move) // Парсинг хода. Например: Pe2e4, Pe7e8Q
+        // Парсинг хода. Например: Pe2e4, Pe7e8Q
+        public FigureMoving (string move) 
         {
             this.figure = (Figure)move[0];
             this.from = new Square(move.Substring(1, 2));

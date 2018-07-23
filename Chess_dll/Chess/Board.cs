@@ -34,9 +34,11 @@ namespace ChessRules
         void InitFigures(string data)
         {
             for (int j = 8; j >= 2; j--)
-                data = data.Replace(j.ToString(), (j - 1).ToString() + "1");// Уменьшает в цикле числа из  data на 1 и прибавляет к строке "1"
+                // Уменьшает в цикле числа из  data на 1 и прибавляет к строке "1"
+                data = data.Replace(j.ToString(), (j - 1).ToString() + "1");
             data = data.Replace("1", ".");
-            string[] lines = data.Split('/'); //Хранит линии доски начиная с левого вехнего
+            // Хранит линии доски начиная с левого вехнего
+            string[] lines = data.Split('/'); 
 
             for (int y = 7; y >= 0; y--)
                 for (int x = 0; x < 8; x++)
@@ -51,7 +53,8 @@ namespace ChessRules
                     yield return new FigureOnSquare(GetFigureAt(square), square);
         }
 
-        void GenerateFen() //Создает новую доску в формате нотации Форсайта — Эдвардса
+        // Создает новую доску в формате нотации Форсайта — Эдвардса
+        void GenerateFen() 
         {
             fen = FenFigures() + " " +
                        (moveColor == Color.white ? "w" : "b") +
@@ -75,7 +78,8 @@ namespace ChessRules
             return sb.ToString();
         }
 
-        public Figure GetFigureAt(Square square) //Возвращает фигуру на клетке 
+        // Возвращает фигуру которая находится на клетке 
+        public Figure GetFigureAt(Square square) 
         {
             if (square.OnBoard())
                 return figures[square.x, square.y];
@@ -124,7 +128,8 @@ namespace ChessRules
 
         public bool IsCheck()
         {
-            Board after = new Board(fen); //Создание доски (передача хода)
+            // Создание доски (передача хода)
+            Board after = new Board(fen); 
             after.moveColor = moveColor.FlipColor();
             return after.CanEatKing();
         }

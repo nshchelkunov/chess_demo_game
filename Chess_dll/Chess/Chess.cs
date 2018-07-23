@@ -27,10 +27,12 @@ namespace ChessRules
             moves = new Moves(board);
         }
 
-        public Chess Move (string move) // Принимает ход в виде Pe2e4   Pe7e8Q
+        // Принимает ход в виде Pe2e4   Pe7e8Q
+        public Chess Move (string move) 
         {
             FigureMoving fm = new FigureMoving(move);
-            if (!moves.CanMove(fm)) // Если нельзя сделать ход..
+            // Если нельзя сделать ход..
+            if (!moves.CanMove(fm)) 
                 return this;
             if (board.IsCheckAfterMove(fm))
                 return this;
@@ -39,14 +41,16 @@ namespace ChessRules
             return nextChess;
         }
 
-        public char GetFigureAt(String st)//Возвращает фигуру по кооординатам
+        // Возвращает фигуру по кооординатам  (e2e4)
+        public char GetFigureAt(String st)
         {
             Square sq = new Square(st);
             Figure f = board.GetFigureAt(sq);
             return f == Figure.none ? '.' : (char)f;
         }
 
-        public char GetFigureAt (int x, int y)//Возвращает фигуру по кооординатам
+        // Возвращает фигуру по кооординатам (4, 2)
+        public char GetFigureAt (int x, int y)
         {
             Square square = new Square(x, y);
             Figure f = board.GetFigureAt(square);
