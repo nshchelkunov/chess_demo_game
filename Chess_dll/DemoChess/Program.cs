@@ -14,7 +14,8 @@ namespace DemoChess
             Random random = new Random();
             Chess.Chess chess = new Chess.Chess ("rnbqkbnr/1p1111p1/8/8/8/8/1P1111P1/RNBQKBNR w KQkq - 0 1");
             List <string> list;
-            while (true) // Выводит игру на консоль
+            // Выводит игру на консоль
+            while (true) 
             {
                 list = chess.GetAllMoves();
                 Console.WriteLine (chess.fen);
@@ -29,8 +30,9 @@ namespace DemoChess
                 chess = chess.Move (move);
             }
         }
-
-        static string ChessToAscii (Chess.Chess chess) //Формирует текст игрового поля для консоли
+        
+        // Формирует текст игрового поля для консоли
+        static string ChessToAscii (Chess.Chess chess) 
         {
             string text = "  +-----------------+\n";
             for (int y = 7; y >= 0; y--)
@@ -45,8 +47,9 @@ namespace DemoChess
             text += "    a b c d e f g h\n";
             return text;
         }
-
-        static void Print (string text) // Подсветка фигур в консоли
+        
+         // Подсветка фигур в консоли
+        static void Print (string text)
         {
             ConsoleColor oldForeColor = Console.ForegroundColor;
             foreach (char x in text)
