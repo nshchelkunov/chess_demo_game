@@ -27,21 +27,24 @@ namespace ChessRules
                 // Может ли фигура сделать этот ход
                 CanFigureMove();
         }
-
+        // Проверка, может ли ходить из этой клетки
         bool CanMoveFrom()
         {
             return
                 fm.from.OnBoard() &&
                 fm.figure.GetColor() == board.moveColor;
         }
-
+        //Проверка, может ли ходить фигура
         bool CanMoveTo()
         {
+            // Фигура на доске
             return fm.to.OnBoard() &&
+                    // Ход сделан не в исходную клетку
                    Square.NoEqualsSquare(fm.from, fm.to)  &&
+                   // Цвет фигуры имеет право на ход
                    board.GetFigureAt(fm.to).GetColor() != board.moveColor;          
         }
-
+        // Проверка, может ли фигура ходить
         bool CanFigureMove()
         {
             switch (fm.figure)
@@ -79,7 +82,7 @@ namespace ChessRules
             }
         }
 
-        //Может ли пешка ходить
+        // Может ли пешка ходить
         bool CanPawnMove() 
         {
             if (fm.from.y < 1 || fm.from.y > 6)
@@ -93,6 +96,7 @@ namespace ChessRules
                    // Может ли есть
                    CanPawnEat(stepY);    
         }
+        // Может ли пешка вперед на 1 клетку
         private bool CanPawnGo (int stepY)
         {
             // Если клетка куда указан ход пуста
@@ -103,7 +107,7 @@ namespace ChessRules
                         return true;
             return false;
         }
-
+        // Может ли пешка пойти через клетку
         private bool CanPawnJump(int stepY)
         {
             if (board.GetFigureAt(fm.to) == Figure.none)
@@ -119,6 +123,7 @@ namespace ChessRules
 
 
         }
+        // Может ли пешка съесть фигуру
         private bool CanPawnEat(int stepY)
         {
             if (board.GetFigureAt(fm.to) != Figure.none)
@@ -141,13 +146,14 @@ namespace ChessRules
                      board.GetFigureAt(at) == Figure.none);
             return false;
         }
-
+        // Может ли король ходить
         private bool CanKingMove() 
         {
             if (fm.AbsDeltaX <= 1 && fm.AbsDeltaY <= 1)
                 return true;
             return false;
         }
+        // Может ли конь ходить
         private bool CanKnightMove()
         {
             if (fm.AbsDeltaX == 1 && fm.AbsDeltaY == 2) return true;

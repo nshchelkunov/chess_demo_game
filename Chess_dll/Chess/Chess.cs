@@ -8,7 +8,9 @@ namespace ChessRules
 {
     public class Chess
     {
+        //  Шахматная позиция
         public string fen { get; private set; }
+        // Создает обьект доска
         Board board;
         Moves moves;
         List<FigureMoving> allMoves;

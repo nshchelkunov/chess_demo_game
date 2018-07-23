@@ -35,6 +35,7 @@ namespace ChessRules
             
         }
 
+        // Функции для определения координат хода:
         public int DeltaX { get { return to.x - from.x; } }
         public int DeltaY { get { return to.y - from.y; } }
 
