@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +7,11 @@ using ChessRules;
 
 public class Game : MonoBehaviour {
 
-	DragAndDrop dad;
+    DragAndDrop dad;
     Chess chess;
     public GameObject BlackSquare;
     public GameObject WhiteSquare;
-    const string HOST = "http://localhost:51278/api/Games/";
+    const string HOST = "http://localhost:50000/api/Games/";
     string USER = "2";
 
     ClientChess client;
@@ -112,48 +112,6 @@ public class Game : MonoBehaviour {
 
         goBox.transform.position = goSquare.transform.position;
     }
-    /*
-    // Подсвечивает фигуры которые могут ходить
-    void MarkValidFigures() 
-    {
-        for (int y = 0; y < 8; y++)
-            for (int x = 0; x < 8; x++)
-                MarkSquare(x, y, false);
-        foreach (string moves in chess.YieldValidMoves())
-        {
-            int x, y;
-            GetCoord(moves.Substring(1, 2), out x, out y);
-            MarkSquare(x, y, true);
-        }     
-    }
-
-    public void GetCoord (string name, out int x, out int y)
-    {
-        x = 9;
-        y = 9;
-        if (name.Length == 2 &&
-            name[0] >= 'a' && name[0] <= 'h' &&
-            name[1] >= '1' && name[1] <= '8')
-        {
-            x = name[0] - 'a'; // Создаем координаты от 0 до 7, 'a' - 'a' = 0, 'b' - 'a' = 1
-            y = name[1] - '1';
-        }
-    }
-
-    void MarkSquare (int x, int y, bool isMarket)
-    {
-        GameObject cell;
-        string color = (x + y) % 2 == 0 ? "Black" : "White";
-        GameObject goSquare = GameObject.Find("" + y + x);
-        if (isMarket)
-            cell = GameObject.Find(color + "SquareMarked"); // Подсвечивает клетку
-        else
-            cell = GameObject.Find(color + "Square"); // Убирает подсветку
-        var spriteSquare = goSquare.GetComponent<SpriteRenderer>();
-        var spriteCell = cell.GetComponent<SpriteRenderer>();
-        spriteSquare.sprite = spriteCell.sprite;
-    }
-    */
 }
 
 class DragAndDrop
